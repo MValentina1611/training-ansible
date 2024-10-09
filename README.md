@@ -41,6 +41,27 @@ pengbai/docker-supermario:latest
 
 Este contenedor expone el puerto `8080`, que se mapeó al puerto `8787` de la máquina virtual para permitir el acceso desde un navegador.
 
+Se siguieron los siguientes pasos:
+1. **Agregar la información del host (vm)**: 
+ ![](docs/ansible-ini.png)
+2. **Verificando la conexión**: 
+   ```bash
+   ansible azure_vm -m ping
+   ```
+      ![](docs/anisble-pong.png)
+
+3. **Ejecutar el playbook de instalación de Docker**: 
+   ```bash
+   ansible-playbook playbooks/install_docker.yml
+   ```
+
+4. **Ejecutar el playbook para el contenedor de Super Mario**: 
+   ```bash
+   ansible-playbook playbooks/run_container.yml
+   ```
+   
+
+   
 ### 3️⃣ Configuración de Seguridad en Azure
 Para permitir el acceso a la aplicación, se creó una **regla de seguridad** en Azure que habilitaba el tráfico entrante al puerto `8787`. Aquí está la configuración de la regla:
 
@@ -80,6 +101,9 @@ Al cambiar a esta imagen de **Ubuntu 22.04**, el problema fue resuelto y el `pla
 
 ### ⚠️ 2. Configuración de Regla de Seguridad para el Puerto 8787
 Inicialmente, no se configuró una regla de seguridad para el puerto `8787`, lo que impidió el acceso al juego **Super Mario Bros**. Esto se resolvió agregando la regla de seguridad mencionada anteriormente, permitiendo el acceso al puerto desde el navegador. 🌐
+
+### Evidencia del despliegue
+ ![](docs/ansible-mb.png)
 
 ## ✅ Conclusión
 

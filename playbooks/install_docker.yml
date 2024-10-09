@@ -1,5 +1,23 @@
 ---
 - hosts: azure_vm
   become: yes
+  tasks:
+    - name: Instalar python3-apt
+      apt:
+        name: python3-apt
+        state: present
+      become: yes
+    - name: Instalar dependencias de Docker
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+      become: yes
+- hosts: azure_vm
+  become: yes
   roles:
     - docker_install
